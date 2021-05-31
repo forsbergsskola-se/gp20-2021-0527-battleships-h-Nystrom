@@ -1,6 +1,12 @@
 # Prerequisites
 *.d
 
+# Ignore Debuger directories
+**/x64/*
+
+#Ignore rider
+*.idea
+
 # Compiled Object files
 *.slo
 *.lo
