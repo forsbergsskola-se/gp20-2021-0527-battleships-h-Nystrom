@@ -2,7 +2,9 @@
 #include "Ship.h"
 #include <iostream>
 
-    GridMap GridMapGenerator::GetEmpty(){
+#include "InputHandler.h"
+
+GridMap GridMapGenerator::GetEmpty(){
         return GridMap();
     }
     GridMap GridMapGenerator::SetBattleShips(){
@@ -19,20 +21,15 @@
             
             do{
                 std::cout << "Ship: " << shipName << " Size: " << ship.length << std::endl;
-                ship.startPosition = SetShipRotation();
-                ship.isVertical = SetShipPosition();
+                ship.isVertical = SetShipRotation();
+                ship.startPosition = SetShipPosition();
             }
             while (!gridMap.TryPlaceShip(ship));
         }
         return gridMap;
     }
     bool GridMapGenerator::SetShipRotation(){
-        while (true){
-            int temp;
-            std::cin >> temp;
-            //TODO: Simple Input handler
-            return false;
-        }
+            return InputHandler().SimpleRequest('v', 'h', "Rotation: V: Vertical, H: Horizontal");
     }
     int GridMapGenerator::SetShipPosition(){
         while (true){

@@ -157,10 +157,12 @@
     <ClCompile Include="Battleships.cpp" />
     <ClCompile Include="GridMap.cpp" />
     <ClCompile Include="GridMapGenerator.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GridMap.h" />
     <ClInclude Include="GridMapGenerator.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
