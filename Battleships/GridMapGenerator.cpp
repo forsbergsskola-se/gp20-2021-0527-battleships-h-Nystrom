@@ -35,7 +35,7 @@ GridMap GridMapGenerator::GetEmpty(){
     }
     int GridMapGenerator::SetShipPosition(){
         while (true){
-            return InputHandler().CoordinatesToIndex(0,9, "Position: Enter a coordinate between A0 to K9");
+            return InputHandler().CoordinateToIndex(0,9, "Position: Enter a coordinate between A0 to K9");
         }
     }
 

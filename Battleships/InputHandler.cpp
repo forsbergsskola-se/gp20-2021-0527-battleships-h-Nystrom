@@ -18,23 +18,28 @@ bool InputHandler::SimpleRequest(const char trueChar, const char falseChar, cons
         std::cout << "Input needs to be: " << trueChar << ", or: " << falseChar << std::endl;
     }
 }
-int InputHandler::CoordinatesToIndex(const int minValue, const int maxValue, const std::string message){
+//TODO:Refactor!
+int InputHandler::CoordinateToIndex(const int minValue, const int maxValue, const std::string message){
     while (true){
-        const int rowSize = 10;
         std::string playerInput;
         std::cout << message << std::endl;
         std::cin >> std::noskipws >> playerInput;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        int coordinates[2];
-        coordinates[0] = std::tolower(playerInput[0]) - 'a';
-        coordinates[1] = playerInput[1] - '0';
-        
-        if(coordinates[0] < minValue || coordinates[0] > maxValue)
-            continue;
-        if(coordinates[1]< minValue || coordinates[1] > maxValue)
-            continue;
-        return coordinates[0] + coordinates[1]*rowSize;
+        const int temp = StringToInt(playerInput, minValue,maxValue);
+        if(temp != -1)
+            return temp;
+        std::cout << "Error: coordinate doesn't exist!" << std::endl;
     }
+}
+int InputHandler::StringToInt(std::string coordinate, const int minValue, const int maxValue){
+    const char offsetChars[]{'a','0'};
+    const int rowSize = 10;
+    for (int i = 0; i < 2; i++){
+        coordinate[i] = std:: tolower(coordinate[i])-offsetChars[i];
+        if(coordinate[i] < minValue || coordinate[i] > maxValue)
+            return -1;
+    }
+    return coordinate[0] + coordinate[1]*rowSize;
 }
 
