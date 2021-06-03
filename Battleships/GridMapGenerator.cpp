@@ -19,12 +19,14 @@ GridMap GridMapGenerator::GetEmpty(){
             ship.length = shipLenght[i];
             std::string shipName = shipNames[i];
             
-            do{
+            while (true){
                 std::cout << "Ship: " << shipName << " Size: " << ship.length << std::endl;
                 ship.isVertical = SetShipRotation();
                 ship.startPosition = SetShipPosition();
+                if(gridMap.TryPlaceShip(ship))
+                    break;
+                std::cout << "Error: ship can't be placed there!" << std::endl;
             }
-            while (!gridMap.TryPlaceShip(ship));
         }
         return gridMap;
     }
@@ -33,9 +35,7 @@ GridMap GridMapGenerator::GetEmpty(){
     }
     int GridMapGenerator::SetShipPosition(){
         while (true){
-            //TODO: Input handler
-            //TODO: Coordinates to int handler
-            return -1;
+            return InputHandler().CoordinatesToIndex(0,9, "Position: Enter a coordinate between A0 to K9");
         }
     }
 
