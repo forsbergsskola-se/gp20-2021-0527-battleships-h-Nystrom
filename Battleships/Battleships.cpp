@@ -1,49 +1,34 @@
+#include <iostream>
 #include "GridMap.h"
 
+
+//TODO: Refactor!
+GridMap GridMapShipSetUp(){
+    auto gridMap = GridMap();
+    const int shipLenght[]{5,4,3,2,2};
+    auto ship = Ship();
+    for(int i = 0; i < 5; i++){
+            std::cout << std::endl;
+            gridMap.DisplayGrid();
+            ship.length = shipLenght[i];
+        //Set rotation:
+            ship.isVertical = true;//TODO: Remove temp!
+            // std::cout << "Vertical or horizontal? v/h" << std::endl;
+            // char input;
+            // std::cin >> input;
+            // ship.isVertical = input == 'v';
+        //Set position:
+            // std::cout << "Pick a coordinate between 0A and 9K" << std::endl;
+            // int input2;
+            // char input3;
+            // std::cin >> input2 >> input3;
+            gridMap.TryPlaceShip(ship);
+            ship.startPosition += 2;
+    }
+    return gridMap;
+}
 int main(){
-    auto gridMap = new GridMap();
-    gridMap->DisplayGrid();
-    gridMap->SetTile(10, 'f');
-    gridMap->GetTileInfo(10);
-    gridMap->DisplayGrid();
+    auto gridMapPlayer1 = GridMapShipSetUp();
+    gridMapPlayer1.DisplayGrid();
     return 0;
 }
-//TODO: Placement of ships logic:
-//Current player: (text)
-//Current Ship info (text)
-//Pick index: A5 etc... (input)
-//Rotate? y/n... (input)
-//Check if it's doable (repeat or continue)
-//
-//TODO: Pick pvp or vs bot
-//TODO: P1 picks location for battleships
-//TODO: P2 picks location for battleships
-//TODO: P1 ship grid and attacking grid
-//TODO: p2 ship grid and attacking grid
-///Summary
-///
-///MapGrid Y:0-9 X:A-J
-///
-///2players turn based
-///
-///ships 5, 4, 3, 2,2 
-///
-///
-///Class ship:
-///name
-///size
-///Placement: Vertically and horizontally
-///Overlap checks and cant connect with each other
-///
-///Carrier: 5
-///Battleship: 4
-///Destroyer: 3
-///Submarine: 2
-///Patrol boat: 2
-///
-///
-///Player:
-///Codinates g7, a2 etc
-///
-///Feedback Hit, miss, ship sunk.
-///
