@@ -1,10 +1,9 @@
 ﻿#pragma once
-#include <vector>
-
+#include "stdafx.h"
 #include "Ship.h"
 
 class GridMap{
-    std::vector<Ship> ships_;
+    vector<Ship> ships_;
     char gridArray[100];
     static void DisplayTopRow();
     bool AreTilesEqualToChar(Ship ship,char character);

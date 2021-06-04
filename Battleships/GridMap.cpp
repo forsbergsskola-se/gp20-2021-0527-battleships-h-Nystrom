@@ -1,38 +1,39 @@
-﻿#include "GridMap.h"
-#include <iostream>
+﻿#include "stdafx.h"
+#include "GridMap.h"
 
     GridMap::GridMap(){
         gridArray[100];
-        std::fill_n(gridArray, 100, ' ');
+        fill_n(gridArray, 100, ' ');
     }
 
     char GridMap::Attack(const int gridIndex){
         const char hitMarker = gridArray[gridIndex];
         switch (hitMarker){
             case ' ':
-                std::cout<< "Miss!" << std::endl;
+                cout<< "Miss!" << endl;
                 SetTile(gridIndex,'M');
                 return 'M';
             case 'S':
-                std::cout<< "Hit!" << std::endl;
+                cout<< "Hit!" << endl;
                 SetTile(gridIndex,'X');
                 return 'X';
             case 'X':
-                std::cout<< "Miss, old hit..!" << std::endl;
+                cout<< "Miss, old hit..!" << endl;
                 return 'X';
             case 'M':
-                std::cout<< "Miss, old miss..!" << std::endl;
+                cout<< "Miss, old miss..!" << endl;
             return 'M';
             default:
-                std::cout << "Error!" << std::endl;
+                cout << "Error!" << endl;
                 return '?';
         }
     }
+
     bool GridMap::IsDefeated(){
         for(int i = 0; i < ships_.size(); i++){
             const char destroyedMarker = 'X';
             if(AreTilesEqualToChar(ships_[i], destroyedMarker)){
-                std::cout << ships_[i].name << " has been destroyed!" << std::endl;
+                cout << ships_[i].name << " has been destroyed!" << endl;
                 ships_.erase(ships_.begin()+i);
             }
         }
@@ -51,27 +52,26 @@
         for (int i = 0; i < 10; i++){  
             for (int j = 0; j <= 10;j++){
                 const char temp = j == 0 ? leftColumn[i] : gridArray[currIndex++];
-                std::cout << '[' << temp << ']';
+                cout << '[' << temp << ']';
             }
-            std::cout << "" <<std::endl;
+            cout << "" << endl;
         }
     }
 
     void GridMap::DisplayTopRow(){
         char topRow[]{'*', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H','I', 'J'};
         for (int i = 0; i <= 10; i++){
-            std::cout << '[' << topRow[i] << ']';
+            cout << '[' << topRow[i] << ']';
         }
-        std::cout << "" << std::endl;
+        cout << "" << endl;
     }
 
     bool GridMap::TryPlaceShip(const Ship ship){
         const int startPositionOffset = -11;
         const int offset = ship.isVertical ? 10 : 1;
 
-        
         if(!AreTilesEqualToChar(ship, ' ')){
-            std::cout << "Captain the coordinates are out of bounds or occupied by another ship! Try again!" << std::endl;
+            cout << "Captain the coordinates are out of bounds or occupied by another ship! Try again!" << endl;
             return false;
         }
         if(!AreSurroundingTilesEmpty(ship.startPosition+startPositionOffset, ship.length+2,offset))
@@ -81,7 +81,6 @@
         return true;
     }
 
-    //TODO: Refactor duplications (if I have time)!
     bool GridMap::AreTilesEqualToChar(Ship ship, const char character){//AreTilesCharacter
         const int directionOffset = ship.isVertical ? 10 : 1;
         for(int i = 0; i < ship.length; i++){
@@ -98,7 +97,7 @@
             int searchIndex = startIndex;
                 for (int j = startIndex; j < startIndex+3; j++){
                     if(searchIndex >= 0 && searchIndex < 100 && gridArray[searchIndex] != ' '){
-                        std::cout << "Captain your coordinates are too close to another ship! Try again!" << std::endl;
+                        cout << "Captain your coordinates are too close to another ship! Try again!" << endl;
                         return false;
                     }
                     searchIndex += directionOffset2;
@@ -107,6 +106,7 @@
         }
         return true;
     }
+
     void GridMap::InsertShip(int startIndex, const int length, const int directionOffset){
         for(int i = 0; i < length; i++){
             SetTile(startIndex, 'S');

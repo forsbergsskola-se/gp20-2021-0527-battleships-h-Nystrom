@@ -158,12 +158,14 @@
     <ClCompile Include="GridMap.cpp" />
     <ClCompile Include="GridMapGenerator.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GridMap.h" />
     <ClInclude Include="GridMapGenerator.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
