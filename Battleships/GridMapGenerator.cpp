@@ -1,19 +1,16 @@
 ﻿#include "GridMapGenerator.h"
+#include "InputHandler.h"
 #include "Ship.h"
 #include <iostream>
 
-#include "InputHandler.h"
-
-GridMap GridMapGenerator::GetEmpty(){
-        return GridMap();
-    }
     GridMap GridMapGenerator::SetBattleShips(){
         int shipLenght[5]{5,4,3,2,2};;
         std::string shipNames[5]{"Carrier", "Battleship", "Destroyer", "SubMarine", "Patrol boat"};
         auto gridMap = GridMap();
         auto ship = Ship();
-        
+
         for(int i = 0; i < 5; i++){
+            
             std::cout << std::endl;
             gridMap.DisplayGrid();
             ship.length = shipLenght[i];
@@ -25,7 +22,7 @@ GridMap GridMapGenerator::GetEmpty(){
                 ship.startPosition = SetShipPosition();
                 if(gridMap.TryPlaceShip(ship))
                     break;
-                std::cout << "Error: ship can't be placed there!" << std::endl;
+                
             }
         }
         return gridMap;
@@ -35,7 +32,7 @@ GridMap GridMapGenerator::GetEmpty(){
     }
     int GridMapGenerator::SetShipPosition(){
         while (true){
-            return InputHandler().CoordinateToIndex(0,9, "Position: Enter a coordinate between A0 to K9");
+            return InputHandler().CoordinateToIndex(0,9, "Position: Enter coordinates between A0 to J9");
         }
     }
 

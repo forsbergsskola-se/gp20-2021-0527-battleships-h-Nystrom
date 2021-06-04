@@ -1,7 +1,19 @@
 ﻿#include "InputHandler.h"
-
 #include <iostream>
 
+
+//TODO: If I have time refactor duplication...
+void InputHandler::EndCurrentTurn(int playerId){
+    for(int i = 0; i < 2; i++){
+        int playerInput;
+        std::cout << "Player" << playerId << " press enter!" << std::endl;
+        std::cin >> std::noskipws >> playerInput;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        playerId++;
+    }
+    system("CLS");
+}
 
 bool InputHandler::SimpleRequest(const char trueChar, const char falseChar, const std::string message){
     while (true){
@@ -18,7 +30,7 @@ bool InputHandler::SimpleRequest(const char trueChar, const char falseChar, cons
         std::cout << "Input needs to be: " << trueChar << ", or: " << falseChar << std::endl;
     }
 }
-//TODO:Refactor!
+
 int InputHandler::CoordinateToIndex(const int minValue, const int maxValue, const std::string message){
     while (true){
         std::string playerInput;
@@ -26,9 +38,9 @@ int InputHandler::CoordinateToIndex(const int minValue, const int maxValue, cons
         std::cin >> std::noskipws >> playerInput;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        const int temp = StringToInt(playerInput, minValue,maxValue);
-        if(temp != -1)
-            return temp;
+        const int gridIndex = StringToInt(playerInput, minValue,maxValue);
+        if(gridIndex != -1)
+            return gridIndex;
         std::cout << "Error: coordinate doesn't exist!" << std::endl;
     }
 }

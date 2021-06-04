@@ -6,4 +6,5 @@ class InputHandler{
 public:
     static bool SimpleRequest(char trueChar, char falseChar, std::string message);
     static int CoordinateToIndex(int minValue,int maxValue, std::string message);
+    static void EndCurrentTurn(int playerId);
 };
