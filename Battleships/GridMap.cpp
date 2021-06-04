@@ -59,14 +59,13 @@
     }
 
     bool GridMap::TryPlaceShip(const Ship ship){
-        const int startPositionOffset = -11;
         const int offset = ship.isVertical ? 10 : 1;
 
         if(!AreTilesEqualToChar(ship, ' ')){
             cout << "Captain the coordinates are out of bounds or occupied by another ship! Try again!" << endl;
             return false;
         }
-        if(!AreSurroundingTilesEmpty(ship.startPosition+startPositionOffset, ship.length+2,offset))
+        if(!AreSurroundingTilesEmpty(ship.startPosition, ship.length+2,offset))
             return false;
         InsertShip(ship.startPosition,ship.length,offset);
         ships_.push_back(ship);
@@ -82,19 +81,34 @@
         }
         return true;
     }
-    //TODO: Fix wrapping problem between a0 and j0...
     bool GridMap::AreSurroundingTilesEmpty(int startIndex, const int length, const int directionOffset){
         const int directionOffset2 = directionOffset == 10 ? 1 : 10;
+        const int startPositionOffset = -11;
+        int skipValidatingColumn = -1;
+        bool validateTile = true;
+        if(startIndex % 10 == 0){
+            skipValidatingColumn = 9;
+            validateTile = false;
+        }
+        else if(startIndex % 9 == 0){
+            skipValidatingColumn = 10;
+            validateTile = false;
+        }
+        startIndex += startPositionOffset;
         for (int i = 0; i < length; i++){
             int searchIndex = startIndex;
-                for (int j = startIndex; j < startIndex+3; j++){
-                    if(searchIndex >= 0 && searchIndex < 100 && gridArray[searchIndex] != ' '){
-                        cout << "Captain your coordinates are too close to another ship! Try again!" << endl;
-                        return false;
+                for (int j = startIndex; j <= startIndex+2; j++){
+                    if(validateTile && searchIndex % skipValidatingColumn != 0){
+                        if(searchIndex >= 0 && searchIndex < 100 && gridArray[searchIndex] != ' '){
+                            
+                            cout << "Captain your coordinates are too close to another ship! Try again!" << endl;
+                            return false;
+                        }
                     }
                     searchIndex += directionOffset2;
                 }
             startIndex += directionOffset;
+            skipValidatingColumn += directionOffset;
         }
         return true;
     }
