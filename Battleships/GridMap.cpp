@@ -65,8 +65,6 @@
             cout << "Captain the coordinates are out of bounds or occupied by another ship! Try again!" << endl;
             return false;
         }
-        if(!AreSurroundingTilesEmpty(ship.startPosition, ship.length+2,offset))
-            return false;
         InsertShip(ship.startPosition,ship.length,offset);
         ships_.push_back(ship);
         return true;
@@ -79,24 +77,6 @@
                 return false;
             ship.startPosition += directionOffset;
         }
-        return true;
-    }
-    bool GridMap::AreSurroundingTilesEmpty(int startIndex, const int length, const int directionOffset){
-        const int directionOffset2 = directionOffset == 10 ? 1 : 10;
-        const int startPositionOffset = -11;
-
-        startIndex += startPositionOffset;
-        for (int i = 0; i < length; i++){
-            int searchIndex = startIndex;
-                for (int j = startIndex; j <= startIndex+2; j++){
-                        if(searchIndex >= 0 && searchIndex < 100 && gridArray[searchIndex] != ' '){ 
-                            cout << "Captain your coordinates are too close to another ship! Try again!" << endl;
-                            return false;
-                        }
-                    }
-                    searchIndex += directionOffset2;
-                }
-            startIndex += directionOffset;
         return true;
     }
 

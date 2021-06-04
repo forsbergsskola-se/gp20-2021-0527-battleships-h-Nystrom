@@ -6,7 +6,6 @@ class GridMap{
     vector<Ship> ships_;
     char gridArray[100];
     bool AreTilesEqualToChar(Ship ship,char character);
-    bool AreSurroundingTilesEmpty(int startIndex, int length, int directionOffset);
     void InsertShip(int startIndex, int length, int directionOffset);
 public:
     GridMap();
