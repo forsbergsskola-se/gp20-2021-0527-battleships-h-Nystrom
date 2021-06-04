@@ -82,9 +82,9 @@
         }
         return true;
     }
-
+    //TODO: Fix wrapping problem between a0 and j0...
     bool GridMap::AreSurroundingTilesEmpty(int startIndex, const int length, const int directionOffset){
-        const int directionOffset2 = directionOffset == 10 ? 0 : 10;
+        const int directionOffset2 = directionOffset == 10 ? 1 : 10;
         for (int i = 0; i < length; i++){
             int searchIndex = startIndex;
                 for (int j = startIndex; j < startIndex+3; j++){
