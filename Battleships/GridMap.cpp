@@ -84,23 +84,12 @@
     bool GridMap::AreSurroundingTilesEmpty(int startIndex, const int length, const int directionOffset){
         const int directionOffset2 = directionOffset == 10 ? 1 : 10;
         const int startPositionOffset = -11;
-        int skipValidatingColumn = -1;
-        bool validateTile = true;
-        if(startIndex % 10 == 0){
-            skipValidatingColumn = 9;
-            validateTile = false;
-        }
-        else if(startIndex % 9 == 0){
-            skipValidatingColumn = 10;
-            validateTile = false;
-        }
+
         startIndex += startPositionOffset;
         for (int i = 0; i < length; i++){
             int searchIndex = startIndex;
                 for (int j = startIndex; j <= startIndex+2; j++){
-                    if(validateTile && searchIndex % skipValidatingColumn != 0){
-                        if(searchIndex >= 0 && searchIndex < 100 && gridArray[searchIndex] != ' '){
-                            
+                        if(searchIndex >= 0 && searchIndex < 100 && gridArray[searchIndex] != ' '){ 
                             cout << "Captain your coordinates are too close to another ship! Try again!" << endl;
                             return false;
                         }
@@ -108,8 +97,6 @@
                     searchIndex += directionOffset2;
                 }
             startIndex += directionOffset;
-            skipValidatingColumn += directionOffset;
-        }
         return true;
     }
 
