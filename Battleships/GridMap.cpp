@@ -48,7 +48,7 @@
     void GridMap::DisplayGrid(){
         char leftColumn[]{'0', '1', '2', '3', '4', '5', '6', '7', '8','9'};
         int currIndex = 0;
-        DisplayTopRow();
+        cout << "[*][A][B][C][D][E][F][G][H][I][J]" << endl;
         for (int i = 0; i < 10; i++){  
             for (int j = 0; j <= 10;j++){
                 const char temp = j == 0 ? leftColumn[i] : gridArray[currIndex++];
@@ -56,14 +56,6 @@
             }
             cout << "" << endl;
         }
-    }
-
-    void GridMap::DisplayTopRow(){
-        char topRow[]{'*', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H','I', 'J'};
-        for (int i = 0; i <= 10; i++){
-            cout << '[' << topRow[i] << ']';
-        }
-        cout << "" << endl;
     }
 
     bool GridMap::TryPlaceShip(const Ship ship){
