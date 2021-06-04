@@ -1,17 +1,20 @@
 ﻿#pragma once
+#include <vector>
+
 #include "Ship.h"
 
 class GridMap{
+    std::vector<Ship> ships_;
     char gridArray[100];
     static void DisplayTopRow();
-    bool AreTilesEmpty(int startIndex, int length, int directionOffset);
+    bool AreTilesEqualToChar(Ship ship,char character);
     bool AreSurroundingTilesEmpty(int startIndex, int length, int directionOffset);
-    bool InsertShip(int startIndex, int length, int directionOffset);
+    void InsertShip(int startIndex, int length, int directionOffset);
 public:
     GridMap();
     bool TryPlaceShip(Ship ship);
-    bool IsEmpty(int gridIndex);
     void SetTile(int gridIndex, char marker);
     void DisplayGrid();
-    char Attack(int attackIndex);
+    char Attack(int gridIndex);
+    bool IsDefeated();
 };

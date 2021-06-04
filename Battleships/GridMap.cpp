@@ -6,9 +6,6 @@
         std::fill_n(gridArray, 100, ' ');
     }
 
-    bool GridMap::IsEmpty(const int gridIndex){
-        return gridArray[gridIndex] == ' ';
-    }
     char GridMap::Attack(const int gridIndex){
         const char hitMarker = gridArray[gridIndex];
         switch (hitMarker){
@@ -31,6 +28,17 @@
                 return '?';
         }
     }
+    bool GridMap::IsDefeated(){
+        for(int i = 0; i < ships_.size(); i++){
+            const char destroyedMarker = 'X';
+            if(AreTilesEqualToChar(ships_[i], destroyedMarker)){
+                std::cout << ships_[i].name << " has been destroyed!" << std::endl;
+                ships_.erase(ships_.begin()+i);
+            }
+        }
+        return ships_.size() == 0;
+    }
+
     void GridMap::SetTile(const int gridIndex, const char marker){
         if(gridIndex < 100 && gridIndex >= 0)
             gridArray[gridIndex] = marker;
@@ -58,25 +66,28 @@
     }
 
     bool GridMap::TryPlaceShip(const Ship ship){
-        const int offset = ship.isVertical ? 10 : 1;
         const int startPositionOffset = -11;
+        const int offset = ship.isVertical ? 10 : 1;
 
-        if(!AreTilesEmpty(ship.startPosition, ship.length, offset))
+        
+        if(!AreTilesEqualToChar(ship, ' ')){
+            std::cout << "Captain the coordinates are out of bounds or occupied by another ship! Try again!" << std::endl;
             return false;
+        }
         if(!AreSurroundingTilesEmpty(ship.startPosition+startPositionOffset, ship.length+2,offset))
             return false;
-        return InsertShip(ship.startPosition,ship.length,offset);
+        InsertShip(ship.startPosition,ship.length,offset);
+        ships_.push_back(ship);
+        return true;
     }
 
     //TODO: Refactor duplications (if I have time)!
-    bool GridMap::AreTilesEmpty(int startIndex, const int length, const int directionOffset){
-        for(int i = 0; i < length; i++){
-            if(startIndex < 0 || startIndex >= 100 || !IsEmpty(startIndex)){
-                std::cout << "Captain the coordinates are out of bounds or occupied by another ship! Try again!" << std::endl;
+    bool GridMap::AreTilesEqualToChar(Ship ship, const char character){//AreTilesCharacter
+        const int directionOffset = ship.isVertical ? 10 : 1;
+        for(int i = 0; i < ship.length; i++){
+            if(ship.startPosition < 0 || ship.startPosition >= 100 || gridArray[ship.startPosition] != character)
                 return false;
-            }
-                
-            startIndex += directionOffset;
+            ship.startPosition += directionOffset;
         }
         return true;
     }
@@ -84,24 +95,21 @@
     bool GridMap::AreSurroundingTilesEmpty(int startIndex, const int length, const int directionOffset){
         const int directionOffset2 = directionOffset == 10 ? 0 : 10;
         for (int i = 0; i < length; i++){
-            int temp = startIndex;
+            int searchIndex = startIndex;
                 for (int j = startIndex; j < startIndex+3; j++){
-                    if(temp >= 0 && temp < 100 && !IsEmpty(temp)){
+                    if(searchIndex >= 0 && searchIndex < 100 && gridArray[searchIndex] != ' '){
                         std::cout << "Captain your coordinates are too close to another ship! Try again!" << std::endl;
                         return false;
                     }
-                        
-                    temp += directionOffset2;
+                    searchIndex += directionOffset2;
                 }
             startIndex += directionOffset;
         }
         return true;
     }
-
-    bool GridMap::InsertShip(int startIndex, const int length, const int directionOffset){
+    void GridMap::InsertShip(int startIndex, const int length, const int directionOffset){
         for(int i = 0; i < length; i++){
             SetTile(startIndex, 'S');
             startIndex += directionOffset;
         }
-        return true;
     }

@@ -25,8 +25,7 @@ int main(){
             std::cout<< "Player"<< playerId << "'s attack gridMap" << std::endl;
             attackGridMaps[playerId].DisplayGrid();
             
-            const int attackIndex = InputHandler().CoordinateToIndex(0,9,
-                "Captain give coordinates between A0 to J9 for the next missile strike:");
+            const int attackIndex = InputHandler().CoordinateToIndex(0,9,"Captain give coordinates between A0 to J9 for the next missile strike:");
             const int opponentId = playerId == 0 ? 1 : 0;
             const char hitMarker = defenceGridMaps[opponentId].Attack(attackIndex);
             attackGridMaps[playerId].SetTile(attackIndex, hitMarker);
@@ -34,8 +33,7 @@ int main(){
             std::cout<< "Player"<< playerId << "'s attack gridMap" << std::endl;
             attackGridMaps[playerId].DisplayGrid();
 
-            //TODO(2 and 3): Handle new ship down and win handling 
-            if(InputHandler().SimpleRequest('y','n', "Temp quit loop y/n"))
+            if(defenceGridMaps[opponentId].IsDefeated())
                 break;
             
             InputHandler().EndCurrentTurn(playerId);

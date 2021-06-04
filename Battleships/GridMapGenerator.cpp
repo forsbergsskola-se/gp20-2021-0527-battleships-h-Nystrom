@@ -14,26 +14,18 @@
             std::cout << std::endl;
             gridMap.DisplayGrid();
             ship.length = shipLenght[i];
-            std::string shipName = shipNames[i];
+            ship.name = shipNames[i];
             
             while (true){
-                std::cout << "Ship: " << shipName << " Size: " << ship.length << std::endl;
-                ship.isVertical = SetShipRotation();
-                ship.startPosition = SetShipPosition();
+                std::cout << "Ship: " << ship.name << " Size: " << ship.length << std::endl;
+                ship.isVertical = InputHandler().SimpleRequest('v', 'h', "Rotation: V: Vertical, H: Horizontal");
+                ship.startPosition = InputHandler().CoordinateToIndex(0,9, "Position: Enter coordinates between A0 to J9");
                 if(gridMap.TryPlaceShip(ship))
                     break;
                 
             }
         }
         return gridMap;
-    }
-    bool GridMapGenerator::SetShipRotation(){
-            return InputHandler().SimpleRequest('v', 'h', "Rotation: V: Vertical, H: Horizontal");
-    }
-    int GridMapGenerator::SetShipPosition(){
-        while (true){
-            return InputHandler().CoordinateToIndex(0,9, "Position: Enter coordinates between A0 to J9");
-        }
     }
 
 
