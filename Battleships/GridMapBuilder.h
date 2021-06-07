@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "GridMap.h"
 
-class GridMapGenerator{
+class GridMapBuilder{
 public:
     static GridMap SetBattleShips();
 };

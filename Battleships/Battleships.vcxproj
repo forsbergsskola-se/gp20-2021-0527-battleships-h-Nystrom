@@ -156,16 +156,19 @@
   <ItemGroup>
     <ClCompile Include="Battleships.cpp" />
     <ClCompile Include="GridMap.cpp" />
-    <ClCompile Include="GridMapGenerator.cpp" />
+    <ClCompile Include="GridMapBuilder.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Ship1.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GridMap.h" />
-    <ClInclude Include="GridMapGenerator.h" />
+    <ClInclude Include="GridMapBuilder.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

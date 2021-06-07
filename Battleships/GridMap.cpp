@@ -1,7 +1,8 @@
 ﻿#include "stdafx.h"
 #include "GridMap.h"
+#include "Vector2.h"
 
-    GridMap::GridMap(){
+GridMap::GridMap(){
         gridArray[100];
         fill_n(gridArray, 100, ' ');
     }
@@ -65,17 +66,40 @@
             cout << "Captain the coordinates are out of bounds or occupied by another ship! Try again!" << endl;
             return false;
         }
+        if(!ShipBoundariesCheck(ship)){//TODO: this!
+            cout << "Captain the coordinates are too close too another ship! Try again!" << endl;
+            return false;
+        }
         InsertShip(ship.startPosition,ship.length,offset);
         ships_.push_back(ship);
         return true;
     }
 
-    bool GridMap::AreTilesEqualToChar(Ship ship, const char character){//AreTilesCharacter
+    bool GridMap::AreTilesEqualToChar(Ship ship, const char character){
         const int directionOffset = ship.isVertical ? 10 : 1;
         for(int i = 0; i < ship.length; i++){
             if(ship.startPosition < 0 || ship.startPosition >= 100 || gridArray[ship.startPosition] != character)
                 return false;
             ship.startPosition += directionOffset;
+        }
+        return true;
+    }
+
+    bool GridMap::ShipBoundariesCheck(const Ship ship){
+    
+        int startIndex = ship.startPosition - 11;
+        const int startOffsetX = ship.startPosition % 10 == 0 ? 1:0;
+        const int endOffsetX = (ship.startPosition+1) % 10 == 0 ? 1:0;
+        const Vector2 vector2 = ship.GetScale();
+        
+        for (int y = 0; y < vector2.y; y++){
+            for(int x = startOffsetX; x < vector2.x-endOffsetX; x++){
+                const int currentIndex = x+startIndex;
+                if(currentIndex >= 0 && currentIndex < 100 && gridArray[currentIndex] != ' '){
+                    return false;
+                }
+            }
+            startIndex += 10;
         }
         return true;
     }

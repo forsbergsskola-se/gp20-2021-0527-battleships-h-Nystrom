@@ -1,9 +1,9 @@
 ﻿#include "stdafx.h"
-#include "GridMapGenerator.h"
+#include "GridMapBuilder.h"
 #include "InputHandler.h"
 #include "Ship.h"
 
-    GridMap GridMapGenerator::SetBattleShips(){
+    GridMap GridMapBuilder::SetBattleShips(){
         int shipLenght[5]{5,4,3,2,2};
         string shipNames[5]{"Carrier", "Battleship", "Destroyer", "SubMarine", "Patrol boat"};
         auto gridMap = GridMap();

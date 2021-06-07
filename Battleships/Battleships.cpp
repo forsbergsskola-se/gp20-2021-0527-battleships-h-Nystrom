@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GridMapGenerator.h"
+#include "GridMapBuilder.h"
 #include "InputHandler.h"
 
 
@@ -10,7 +10,7 @@ int main(){
         GridMap defenceGridMaps[2];
         GridMap attackGridMaps[2];
         for (int i = 0; i < 2; i++){
-            defenceGridMaps[i] = GridMapGenerator().SetBattleShips();
+            defenceGridMaps[i] = GridMapBuilder().SetBattleShips();
             attackGridMaps[i] = GridMap();
             InputHandler().EndCurrentTurn(playerId);
         }
